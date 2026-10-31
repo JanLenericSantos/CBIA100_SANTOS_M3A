@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>4024flwrs | Bloom More, Spend Less</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff9f7;
+            color: #333;
+        }
+
+        /* VIEWPORT CONTROL TOOLBAR */
+        .viewport-controls {
+            background-color: #a83d5b;
+            color: white;
+            padding: 0.8rem 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.75rem;
+            position: sticky;
+            top: 0;
+            z-index: 2000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            font-family: Arial, sans-serif;
+            font-size: 0.9rem;
+        }
+
+        .viewport-btn {
+            background-color: #d85c7a;
+            color: white;
+            border: 1px solid #fce8ed;
+            padding: 0.4rem 0.9rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.2s, border-color 0.2s;
+        }
+
+        .viewport-btn:hover {
+            background-color: #80233c;
+        }
+
+        .viewport-btn.active {
+            background-color: #ffffff;
+            color: #a83d5b;
+            border-color: #ffffff;
+        }
+
+        /* MARKETPLACE WRAPPER */
+        .marketplace-wrapper {
+            width: 100%;
+            margin: 0 auto;
+            transition: max-width 0.3s ease, border-radius 0.3s ease, margin 0.3s ease;
+            background-color: #fff9f7;
+        }
+
+        /* VIEWMODE SIMULATION FRAMES */
+        .marketplace-wrapper.view-phone {
+            max-width: 375px;
+            border: 8px solid #a83d5b;
+            border-radius: 20px;
+            margin: 2rem auto;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .marketplace-wrapper.view-tablet {
+            max-width: 768px;
+            border: 8px solid #a83d5b;
+            border-radius: 12px;
+            margin: 2rem auto;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .marketplace-wrapper.view-desktop {
+            max-width: 1200px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.08);
+        }
+
+        /* HEADER */
+        header {
+            background-color: white;
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #d85c7a;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            margin-left: 20px;
+            font-size: 15px;
+            display: inline-block;
+        }
+
+        nav a:hover {
+            color: #d85c7a;
+        }
+
+        /* HOME */
+        .hero {
+            padding: 80px 8%;
+            background-color: #fce8ed;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 40px;
+            color: #a83d5b;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            max-width: 500px;
+            font-size: 18px;
+            line-height: 1.6;
+            margin: 0 auto 30px auto;
+        }
+
+        .hero-button {
+            display: inline-block;
+            background-color: #d85c7a;
+            color: white;
+            text-decoration: none;
+            padding: 14px 25px;
+            border-radius: 5px;
+        }
+
+        .hero-button:hover {
+            background-color: #a83d5b;
+        }
+
+        /* PRODUCTS */
+        .products {
+            padding: 60px 5%;
+            text-align: center;
+        }
+
+        .products h2,
+        .about h2,
+        .contact h2 {
+            font-size: 35px;
+            color: #a83d5b;
+            margin-bottom: 10px;
+        }
+
+        .section-text {
+            margin-bottom: 40px;
+            color: #666;
+        }
+
+        .product-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+            justify-items: center;
+        }
+
+        .product-card {
+            background-color: white;
+            width: 100%;
+            max-width: 320px;
+            padding-bottom: 25px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px #ddd;
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .product-card h3 {
+            margin-top: 20px;
+            font-size: 22px;
+            color: #a83d5b;
+        }
+
+        .product-card p {
+            padding: 10px 20px;
+            line-height: 1.5;
+            color: #666;
+            flex-grow: 1;
+        }
+
+        .product-card h4 {
+            font-size: 22px;
+            margin: 10px;
+            color: #333;
+        }
+
+        .product-card button {
+            background-color: #d85c7a;
+            border: none;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 0 20px;
+        }
+
+        .product-card button:hover {
+            background-color: #a83d5b;
+        }
+
+        /* ABOUT */
+        .about {
+            padding: 60px 8%;
+            text-align: center;
+            background-color: #fce8ed;
+        }
+
+        .about p {
+            max-width: 750px;
+            margin: 20px auto;
+            line-height: 1.7;
+        }
+
+        .slogan {
+            font-size: 24px;
+            font-weight: bold;
+            color: #d85c7a;
+        }
+
+        /* CONTACT */
+        .contact {
+            padding: 60px 8%;
+            text-align: center;
+        }
+
+        .contact p {
+            margin: 15px;
+        }
+
+        .contact a {
+            color: #d85c7a;
+            text-decoration: none;
+        }
+
+        .contact a:hover {
+            text-decoration: underline;
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: #a83d5b;
+            color: white;
+            text-align: center;
+            padding: 25px;
+        }
+
+        footer p {
+            margin: 5px;
+        }
+
+        /* MEDIA QUERIES FOR RESPONSIVE BREAKPOINTS */
+
+        /* Tablet View Breakpoint (600px and up) */
+        @media (min-width: 600px) {
+            header {
+                padding: 20px 8%;
+            }
+
+            .hero {
+                padding: 100px 10%;
+                text-align: left;
+            }
+
+            .hero h1 {
+                font-size: 50px;
+            }
+
+            .hero p {
+                margin: 0 0 30px 0;
+            }
+
+            .product-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .product-card {
+                max-width: 100%;
+            }
+        }
+
+        /* Desktop View Breakpoint (900px and up) */
+        @media (min-width: 900px) {
+            .hero h1 {
+                font-size: 55px;
+            }
+
+            .product-container {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .about {
+                padding: 70px 15%;
+            }
+
+            .products {
+                padding: 70px 8%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- VIEWPORT CONTROL TOOLBAR -->
+    <div class="viewport-controls">
+        <span>View Mode:</span>
+        <button class="viewport-btn active" onclick="switchView('auto', this)">Automatic</button>
+        <button class="viewport-btn" onclick="switchView('desktop', this)">Desktop View</button>
+        <button class="viewport-btn" onclick="switchView('tablet', this)">Tablet View</button>
+        <button class="viewport-btn" onclick="switchView('phone', this)">Phone View</button>
+    </div>
+
+    <!-- MAIN MARKETPLACE FRAME WRAPPER -->
+    <div class="marketplace-wrapper" id="marketplaceFrame">
+
+        <!-- HEADER -->
+        <header>
+
+            <div class="logo">
+                4024flwrs
+            </div>
+
+            <nav>
+                <a href="#home">Home</a>
+                <a href="#products">Products</a>
+                <a href="#about">About Us</a>
+                <a href="#contact">Contact</a>
+            </nav>
+
+        </header>
+
+
+        <!-- MAIN CONTENT -->
+        <main>
+
+            <!-- HOME SECTION -->
+            <section id="home" class="hero">
+
+                <h1>
+                    Bloom More,<br>
+                    Spend Less.
+                </h1>
+
+                <p>
+                    Affordable and beautiful flowers made for every
+                    celebration, surprise, and special moment.
+                </p>
+
+                <a href="#products" class="hero-button">
+                    Shop Flowers
+                </a>
+
+            </section>
+
+
+            <!-- PRODUCTS SECTION -->
+            <section id="products" class="products">
+
+                <h2>Our Flowers</h2>
+
+                <p class="section-text">
+                    Fresh and affordable flowers for every occasion.
+                </p>
+
+
+                <div class="product-container">
+
+                    <!-- GERBERA -->
+                    <div class="product-card">
+
+                        <img
+                            src="https://www.kalidades.com/wp-content/uploads/2025/05/Bouquet-of-6-stems-Gerbera.png"
+                            alt="Colorful Gerbera flower bouquet"
+                        >
+
+                        <h3>Gerbera</h3>
+
+                        <p>
+                            A bright and cheerful flower perfect for
+                            simple gifts and everyday surprises.
+                        </p>
+
+                        <h4>₱99</h4>
+
+                        <button>Buy Now</button>
+
+                    </div>
+
+
+                    <!-- CARNATION -->
+                    <div class="product-card">
+
+                        <img
+                            src="https://www.kalidades.com/wp-content/uploads/2023/04/red-6-stem-carn-1.png"
+                            alt="Pink carnation flowers"
+                        >
+
+                        <h3>Carnation</h3>
+
+                        <p>
+                            A classic flower that expresses love,
+                            appreciation, and thoughtful gestures.
+                        </p>
+
+                        <h4>₱99</h4>
+
+                        <button>Buy Now</button>
+
+                    </div>
+
+
+                    <!-- SUNFLOWER -->
+                    <div class="product-card">
+
+                        <img
+                            src="https://labellarosaflowers.com/cdn/shop/products/FullSizeRender110.jpg?v=1641210794&width=1946"
+                            alt="Yellow sunflower bouquet"
+                        >
+
+                        <h3>Sunflower</h3>
+
+                        <p>
+                            A vibrant and happy flower that brings
+                            warmth and positivity to any occasion.
+                        </p>
+
+                        <h4>₱119</h4>
+
+                        <button>Buy Now</button>
+
+                    </div>
+
+
+                    <!-- TULIPS -->
+                    <div class="product-card">
+
+                        <img
+                            src="https://labellarosaflowers.com/cdn/shop/products/459B0BC5-C855-47DC-89D4-0364EC8A8747.jpg?v=1641206754&width=1946"
+                            alt="Pink tulip flower bouquet"
+                        >
+
+                        <h3>Tulips</h3>
+
+                        <p>
+                            Elegant tulips perfect for birthdays,
+                            anniversaries, and special celebrations.
+                        </p>
+
+                        <h4>₱249</h4>
+
+                        <button>Buy Now</button>
+
+                    </div>
+
+
+                    <!-- IMPORTED FILLERS -->
+                    <div class="product-card">
+
+                        <img
+                            src="https://gloristflowers.com/cdn/shop/files/coral-snow-white-gypsophila-kraft-white-wrap-bouquet-2.jpg?v=1778912980"
+                            alt="White flower fillers"
+                        >
+
+                        <h3>Imported Fillers</h3>
+
+                        <p>
+                            Delicate imported fillers that add extra
+                            beauty and character to your bouquet.
+                        </p>
+
+                        <h4>₱299</h4>
+
+                        <button>Buy Now</button>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ABOUT SECTION -->
+            <section id="about" class="about">
+
+                <h2>About 4024flwrs</h2>
+
+                <p>
+                    4024flwrs is a student-owned mini flower shop
+                    that believes beautiful flowers should be
+                    affordable and accessible.
+                </p>
+
+                <p>
+                    We offer simple yet meaningful flowers for
+                    students, friends, families, and loved ones.
+                </p>
+
+                <p class="slogan">
+                    Bloom More, Spend Less.
+                </p>
+
+            </section>
+
+
+            <!-- CONTACT SECTION -->
+            <section id="contact" class="contact">
+
+                <h2>Get in Touch</h2>
+
+                <p>
+                    Have a question or want to learn more about
+                    our flowers?
+                </p>
+
+                <p>
+                    <strong>Location:</strong>
+                    Biñan, Laguna
+                </p>
+
+                <p>
+                    <strong>Social Media:</strong>
+
+                    <a href="https://www.facebook.com/" target="_blank">
+                        Facebook
+                    </a>
+
+                    |
+
+                    <a href="https://www.instagram.com/" target="_blank">
+                        Instagram
+                    </a>
+                </p>
+
+            </section>
+
+        </main>
+
+
+        <!-- FOOTER -->
+        <footer>
+
+            <p>
+                © 2026 4024flwrs. All rights reserved.
+            </p>
+
+            <p>
+                Bloom More, Spend Less.
+            </p>
+
+        </footer>
+
+    </div>
+
+    <!-- JAVASCRIPT FOR VIEWMODE SWITCHING -->
+    <script>
+        function switchView(mode, button) {
+            const frame = document.getElementById('marketplaceFrame');
+            const buttons = document.querySelectorAll('.viewport-btn');
+
+            buttons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+
+            frame.className = 'marketplace-wrapper';
+            if (mode !== 'auto') {
+                frame.classList.add('view-' + mode);
+            }
+        }
+    </script>
+
+</body>
+</html>

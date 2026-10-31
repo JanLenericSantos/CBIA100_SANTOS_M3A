@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Activity Compilation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Blend of Marketplace Rose & Portfolio Warm Neutrals in a Soft, Cute Pastel Tone */
+            --bg-color: #fff8f6;
+            --card-bg: #ffffff;
+            --primary-rose: #f4acb7;
+            --accent-rose: #d8707c;
+            --soft-blush: #ffe5ec;
+            --warm-beige: #f7e1d7;
+            --soft-sage: #e8f0fe;
+            --text-dark: #4a3e3d;
+            --text-muted: #7d6b6d;
+            --shadow: 0 8px 20px rgba(168, 61, 91, 0.06);
+            --radius: 20px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4, .nav-logo {
+            font-family: 'Fredoka', sans-serif;
+        }
+
+        /* Navigation */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(216, 112, 124, 0.08);
+            border-bottom: 1px solid var(--soft-blush);
+        }
+
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-rose);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-rose);
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 4rem 1.5rem;
+            background: linear-gradient(180deg, #ffe0e6 0%, var(--bg-color) 100%);
+            border-radius: 0 0 30px 30px;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            color: var(--accent-rose);
+            margin-bottom: 0.5rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 2rem auto;
+        }
+
+        .btn-explore {
+            display: inline-block;
+            background: var(--primary-rose);
+            color: #ffffff;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(244, 172, 183, 0.4);
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        .btn-explore:hover {
+            transform: translateY(-3px);
+            background-color: var(--accent-rose);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 2.5rem;
+            color: var(--text-dark);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 4px;
+            background-color: var(--primary-rose);
+            margin: 0.5rem auto 0;
+            border-radius: 2px;
+        }
+
+        /* Grid & Cards */
+        .activities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            border: 2px solid #fce3e6;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(216, 112, 124, 0.12);
+        }
+
+        .card-img-placeholder {
+            width: 100%;
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #ffffff;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .bg-card-1 { background-color: #f7cad0; }
+        .bg-card-2 { background-color: #e2ece9; }
+        .bg-card-3 { background-color: #f7e1d7; }
+
+        .card-body {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .card-desc {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            flex-grow: 1;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-badge {
+            background-color: var(--soft-blush);
+            color: var(--accent-rose);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .btn-card {
+            display: block;
+            text-align: center;
+            background-color: var(--warm-beige);
+            color: var(--text-dark);
+            padding: 0.6rem 1rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.2s, color 0.2s;
+            cursor: pointer;
+            border: none;
+            width: 100%;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1rem;
+        }
+
+        .btn-card:hover {
+            background-color: var(--primary-rose);
+            color: white;
+        }
+
+        /* About Section */
+        .about-section {
+            background: #ffffff;
+            padding: 2.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border: 2px solid #fce3e6;
+            margin-bottom: 3rem;
+        }
+
+        .about-content p {
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #fce3e6;
+            text-align: center;
+            padding: 2rem 1.5rem;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+            border-radius: 30px 30px 0 0;
+        }
+
+        footer p {
+            margin: 0.3rem 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="#" class="nav-logo">🌸 Compilation Hub</a>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#activities">Activities</a></li>
+            <li><a href="#about">About</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero" id="home">
+        <h1>Student Activity Compilation</h1>
+        <p>A showcase of completed activities demonstrating HTML5 structure, CSS styling, responsiveness, and web design fundamentals.</p>
+        <a href="#activities" class="btn-explore">Explore Activities</a>
+    </header>
+
+    <main class="container">
+
+        <!-- Featured Activities -->
+        <section id="activities">
+            <h2 class="section-title">Featured Activities</h2>
+            <div class="activities-grid">
+                
+                <!-- Card 1: Personal Portfolio -->
+                <article class="card">
+                    <div class="card-img-placeholder bg-card-1">
+                        Personal Portfolio
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">1. Personal Portfolio</h3>
+                        <p class="card-desc">A personal showcase featuring academic background, achievements, and personal interests styled with warm, editorial design elements.</p>
+                        <div class="tech-stack">
+                            <span class="tech-badge">HTML5</span>
+                            <span class="tech-badge">CSS3</span>
+                            <span class="tech-badge">Layout Design</span>
+                        </div>
+                        <button onclick="openProject('portfolio')" class="btn-card">View Project</button>
+                    </div>
+                </article>
+
+                <!-- Card 2: Marketplace -->
+                <article class="card">
+                    <div class="card-img-placeholder bg-card-2">
+                        Marketplace Hub
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">2. Marketplace</h3>
+                        <p class="card-desc">A marketplace layout displaying items, product highlights, and structured sections designed for online storefront presentation.</p>
+                        <div class="tech-stack">
+                            <span class="tech-badge">HTML5</span>
+                            <span class="tech-badge">CSS Styling</span>
+                            <span class="tech-badge">E-Commerce UI</span>
+                        </div>
+                        <button onclick="openProject('marketplace')" class="btn-card">View Project</button>
+                    </div>
+                </article>
+
+                <!-- Card 3: Responsive Design -->
+                <article class="card">
+                    <div class="card-img-placeholder bg-card-3">
+                        Responsive Marketplace
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">3. Responsive Design</h3>
+                        <p class="card-desc">An enhanced, fully responsive version of the Marketplace layout using Flexbox, CSS Grid, media queries, and viewport mode switching controls.</p>
+                        <div class="tech-stack">
+                            <span class="tech-badge">CSS Grid</span>
+                            <span class="tech-badge">Flexbox</span>
+                            <span class="tech-badge">Media Queries</span>
+                        </div>
+                        <button onclick="openProject('responsive')" class="btn-card">View Project</button>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="about-section" id="about">
+            <h2 class="section-title">About the Student</h2>
+            <div class="about-content">
+                <p>Hello! I am <strong>Jan Leneric Santos</strong>, a student interested in marketing, filmmaking, multimedia, music, and creative projects. Welcome to my central web application compilation for course activities completed during the academic term!</p>
+                <p>Through these projects, practical knowledge in web structure, responsive design patterns, layout techniques, and aesthetic styling was implemented to build engaging digital media projects.</p>
+                <p><strong>Key Learnings:</strong> Developing structured HTML5 layouts, implementing CSS Flexbox and Grid, utilizing media queries to establish fluid layouts across screen viewports, and creating coherent aesthetic palettes for digital web presentation.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p><strong>Student Name:</strong> Jan Leneric Santos</p>
+        <p><strong>Course & Section:</strong> Web Development / Information Technology</p>
+        <p><strong>Academic Year:</strong> 2025 – 2026</p>
+    </footer>
+
+    <!-- EMBEDDED ACTIVITY DATA & OPENING LOGIC -->
+    <script>
+        const portfolioSource = `<!DOCTYPE html>
+<html>
+<head>
+    <title>Jan Leneric Santos | Personal Portfolio</title>
+    <style>
+        body { margin: 0; font-family: Arial, sans-serif; background-color: #f5efe6; color: #3e3025; }
+        html { scroll-behavior: smooth; }
+        header { background-color: #5a4033; color: white; padding: 20px; text-align: center; position: sticky; top: 0; z-index: 100; }
+        header h1 { margin: 0; }
+        header p { margin: 5px 0 15px; }
+        nav a { color: white; text-decoration: none; margin: 0 10px; font-weight: bold; }
+        nav a:hover { color: #e8c9a8; }
+        section { padding: 50px 10%; }
+        section h2 { text-align: center; color: #5a4033; margin-bottom: 30px; }
+        #home { min-height: 80vh; display: flex; justify-content: center; align-items: center; text-align: center; background-color: #eadbc8; }
+        #home img { width: 180px; height: 180px; object-fit: cover; border-radius: 50%; border: 5px solid white; margin-bottom: 20px; }
+        #home h2 { font-size: 40px; margin: 10px; }
+        #home p { font-size: 20px; }
+        .about-box { background-color: white; padding: 25px; border-radius: 10px; box-shadow: 0 3px 10px #00000020; }
+        .skills-container { display: flex; gap: 20px; flex-wrap: wrap; }
+        .skill-box { background-color: white; padding: 20px; flex: 1; min-width: 220px; border-radius: 10px; transition: 0.3s; }
+        .skill-box:hover { transform: translateY(-5px); box-shadow: 0 5px 15px #00000030; }
+        .skill-box h3 { color: #6b4b3e; }
+        .projects-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        article { background-color: white; padding: 20px; border-radius: 10px; transition: 0.3s; }
+        article:hover { transform: translateY(-5px); box-shadow: 0 5px 15px #00000030; }
+        article h3 { color: #6b4b3e; }
+        .activity-list { background-color: white; padding: 25px; border-radius: 10px; }
+        .activity-list li { margin: 12px 0; }
+        .achievement-box { background-color: #eadbc8; padding: 25px; margin-bottom: 15px; border-left: 6px solid #5a4033; border-radius: 5px; }
+        .journey { display: flex; flex-direction: column; gap: 15px; }
+        .journey-item { background-color: white; padding: 20px; border-radius: 10px; }
+        .journey-item h3 { color: #6b4b3e; }
+        form { background-color: white; padding: 25px; max-width: 600px; margin: auto; border-radius: 10px; }
+        form label { display: block; margin-top: 15px; font-weight: bold; }
+        form input, form textarea { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
+        form textarea { height: 120px; }
+        form button { margin-top: 20px; padding: 12px 25px; background-color: #5a4033; color: white; border: none; border-radius: 5px; cursor: pointer; transition: 0.3s; }
+        form button:hover { background-color: #806052; }
+        footer { background-color: #5a4033; color: white; text-align: center; padding: 20px; }
+        @media (max-width: 800px) { .projects-container { grid-template-columns: 1fr; } nav a { display: inline-block; margin: 5px; } section { padding: 40px 5%; } }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Jan Leneric Santos</h1>
+        <p>Marketer • Filmmaker • Creative</p>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#projects">Projects</a>
+            <a href="#activities">Activities</a>
+            <a href="#achievements">Achievements</a>
+            <a href="#journey">Journey</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+    <section id="home">
+        <div>
+            <img src="hanjan.jpg" alt="Photo of Jan Leneric Santos">
+            <h2>Welcome to My Portfolio</h2>
+            <p>Exploring creativity through marketing, filmmaking, music, and storytelling.</p>
+        </div>
+    </section>
+    <section id="about">
+        <h2>About Me</h2>
+        <div class="about-box">
+            <p>Hello! I am Jan Leneric Santos, a student interested in marketing, filmmaking, multimedia, music, and creative projects. I also studied Computer Engineering for one term, which gave me experience and exposure to technology, problem-solving, and engineering concepts.</p>
+            <p>I enjoy working on projects that allow me to combine creativity, communication, leadership, and technology. I am also interested in storytelling and creating meaningful experiences through different forms of media.</p>
+            <p>My goal is to continue developing my skills and find a career where I can combine business, creativity, and media.</p>
+            <h3>My Interests</h3>
+            <ul>
+                <li>Filmmaking</li>
+                <li>Photography</li>
+                <li>Music and Choir</li>
+                <li>Marketing</li>
+                <li>Event Production</li>
+                <li>Storytelling</li>
+            </ul>
+        </div>
+    </section>
+    <section id="skills">
+        <h2>My Skills</h2>
+        <div class="skills-container">
+            <div class="skill-box">
+                <h3>Creative Skills</h3>
+                <ul>
+                    <li>Filmmaking</li>
+                    <li>Photography</li>
+                    <li>Storytelling</li>
+                    <li>Video Production</li>
+                </ul>
+            </div>
+            <div class="skill-box">
+                <h3>Technical Skills</h3>
+                <ul>
+                    <li>HTML and CSS</li>
+                    <li>Video Editing</li>
+                    <li>Graphic Design</li>
+                    <li>Digital Media</li>
+                </ul>
+            </div>
+            <div class="skill-box">
+                <h3>Professional Skills</h3>
+                <ul>
+                    <li>Leadership</li>
+                    <li>Teamwork</li>
+                    <li>Communication</li>
+                    <li>Event Organization</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <section id="projects">
+        <h2>Projects</h2>
+        <div class="projects-container">
+            <article>
+                <h3>KISLAP Mapúa</h3>
+                <p>A multimedia and performing arts collective focused on filmmaking, photography, graphic design, music, dance, acting, and other creative projects.</p>
+            </article>
+            <article>
+                <h3>Liham ni Lola</h3>
+                <p>A short family drama film project created for the Puregold CinePanalo Film Festival. The story focuses on family, memories, and the relationship between a grandson and his grandmother.</p>
+            </article>
+            <article>
+                <h3>4024flwrs</h3>
+                <p>A student-owned mini flower shop with the slogan "Bloom More, Spend Less," offering affordable flowers for students and customers.</p>
+            </article>
+        </div>
+    </section>
+    <section id="activities">
+        <h2>Activities & Events</h2>
+        <div class="activity-list">
+            <ul>
+                <li><strong>Mapúa Malayan Vocal Ensemble</strong> – Participated in choir performances, competitions, events, and organizational activities.</li>
+                <li><strong>Film Production</strong> – Worked on short films and multimedia projects.</li>
+                <li><strong>School Activities</strong> – Participated in academic, creative, community, and organizational projects.</li>
+                <li><strong>Event Production</strong> – Gained experience in planning and organizing performances and events.</li>
+            </ul>
+        </div>
+    </section>
+    <section id="achievements">
+        <h2>Achievements & Awards</h2>
+        <div class="achievement-box">
+            <h3>SLCUAA 25th Season Champion</h3>
+            <p>Participated with the Mapúa Malayan Vocal Ensemble in the group singing competition.</p>
+        </div>
+        <div class="achievement-box">
+            <h3>Biñan National Choral Festival</h3>
+            <p>Mapúa Malayan Vocal Ensemble received a Gold Diploma during the 9th Biñan National Choral Festival.</p>
+        </div>
+        <div class="achievement-box">
+            <h3>NAMCYA 2025 Semi-Finalist</h3>
+            <p>Participated as part of the Mapúa Malayan Vocal Ensemble in the National Music Competitions for Young Artists.</p>
+        </div>
+        <div class="achievement-box">
+            <h3>Film Production</h3>
+            <p>Worked on creative film projects involving storytelling, screenplay writing, production, and multimedia.</p>
+        </div>
+        <div class="achievement-box">
+            <h3>With Honors – Senior High School</h3>
+            <p>Graduated from Senior High School with Honors, recognizing consistent academic performance and dedication to my studies.</p>
+        </div>
+    </section>
+    <section id="journey">
+        <h2>My Journey & Experience</h2>
+        <div class="journey">
+            <div class="journey-item">
+                <h3>2024 – KISLAP Mapúa</h3>
+                <p>Became involved in multimedia and performing arts, gaining experience in leadership, filmmaking, photography, and creative production.</p>
+            </div>
+            <div class="journey-item">
+                <h3>2025 – Creative & Organizational Work</h3>
+                <p>Continued working on film, music, choir, events, and student organization projects.</p>
+            </div>
+            <div class="journey-item">
+                <h3>2025 - Computer Engineering – 1 Term</h3>
+                <p>I studied Computer Engineering for one term, where I gained introductory experience in technology, problem-solving, and engineering concepts.</p>
+            </div>
+            <div class="journey-item">
+                <h3>2026 – Marketing & Entrepreneurship</h3>
+                <p>Expanded my interests into marketing, entrepreneurship, digital media, and creative business projects.</p>
+            </div>
+        </div>
+    </section>
+    <section id="contact">
+        <h2>Contact Me</h2>
+        <form>
+            <label for="name">Name</label>
+            <input type="text" id="name" placeholder="Enter your name">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="Enter your email">
+            <label for="message">Message</label>
+            <textarea id="message" placeholder="Write your message"></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+    </section>
+    <footer>
+        <p>© 2026 Jan Leneric Santos. All Rights Reserved.</p>
+        <p>Personal Portfolio Website</p>
+    </footer>
+</body>
+</html>`;
+
+        const marketplaceSource = `<!DOCTYPE html>
+<html>
+<head>
+    <title>4024flwrs | Bloom More, Spend Less</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Arial, sans-serif; background-color: #fff9f7; color: #333; }
+        .viewport-controls { background-color: #a83d5b; color: white; padding: 0.8rem 1rem; display: flex; justify-content: center; align-items: center; gap: 0.75rem; position: sticky; top: 0; z-index: 2000; box-shadow: 0 4px 12px rgba(0,0,0,0.15); font-family: Arial, sans-serif; font-size: 0.9rem; }
+        .viewport-btn { background-color: #d85c7a; color: white; border: 1px solid #fce8ed; padding: 0.4rem 0.9rem; border-radius: 4px; cursor: pointer; font-weight: bold; transition: background-color 0.2s, border-color 0.2s; }
+        .viewport-btn:hover { background-color: #80233c; }
+        .viewport-btn.active { background-color: #ffffff; color: #a83d5b; border-color: #ffffff; }
+        .marketplace-wrapper { width: 100%; margin: 0 auto; transition: max-width 0.3s ease, border-radius 0.3s ease, margin 0.3s ease; background-color: #fff9f7; }
+        .marketplace-wrapper.view-phone { max-width: 375px; border: 8px solid #a83d5b; border-radius: 20px; margin: 2rem auto; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+        .marketplace-wrapper.view-tablet { max-width: 768px; border: 8px solid #a83d5b; border-radius: 12px; margin: 2rem auto; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+        .marketplace-wrapper.view-desktop { max-width: 1200px; box-shadow: 0 0 20px rgba(0,0,0,0.08); }
+        header { background-color: white; padding: 20px 8%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; flex-wrap: wrap; gap: 15px; }
+        .logo { font-size: 28px; font-weight: bold; color: #d85c7a; }
+        nav a { text-decoration: none; color: #333; margin-left: 20px; font-size: 15px; display: inline-block; }
+        nav a:hover { color: #d85c7a; }
+        .hero { padding: 80px 8%; background-color: #fce8ed; text-align: center; }
+        .hero h1 { font-size: 40px; color: #a83d5b; margin-bottom: 20px; }
+        .hero p { max-width: 500px; font-size: 18px; line-height: 1.6; margin: 0 auto 30px auto; }
+        .hero-button { display: inline-block; background-color: #d85c7a; color: white; text-decoration: none; padding: 14px 25px; border-radius: 5px; }
+        .hero-button:hover { background-color: #a83d5b; }
+        .products { padding: 60px 5%; text-align: center; }
+        .products h2, .about h2, .contact h2 { font-size: 35px; color: #a83d5b; margin-bottom: 10px; }
+        .section-text { margin-bottom: 40px; color: #666; }
+        .product-container { display: grid; grid-template-columns: 1fr; gap: 25px; justify-items: center; }
+        .product-card { background-color: white; width: 100%; max-width: 320px; padding-bottom: 25px; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 12px #ddd; transition: 0.3s; display: flex; flex-direction: column; }
+        .product-card:hover { transform: translateY(-8px); }
+        .product-card img { width: 100%; height: 220px; object-fit: cover; }
+        .product-card h3 { margin-top: 20px; font-size: 22px; color: #a83d5b; }
+        .product-card p { padding: 10px 20px; line-height: 1.5; color: #666; flex-grow: 1; }
+        .product-card h4 { font-size: 22px; margin: 10px; color: #333; }
+        .product-card button { background-color: #d85c7a; border: none; color: white; padding: 12px 25px; border-radius: 5px; cursor: pointer; margin: 0 20px; }
+        .product-card button:hover { background-color: #a83d5b; }
+        .about { padding: 60px 8%; text-align: center; background-color: #fce8ed; }
+        .about p { max-width: 750px; margin: 20px auto; line-height: 1.7; }
+        .slogan { font-size: 24px; font-weight: bold; color: #d85c7a; }
+        .contact { padding: 60px 8%; text-align: center; }
+        .contact p { margin: 15px; }
+        .contact a { color: #d85c7a; text-decoration: none; }
+        .contact a:hover { text-decoration: underline; }
+        footer { background-color: #a83d5b; color: white; text-align: center; padding: 25px; }
+        footer p { margin: 5px; }
+        @media (min-width: 600px) {
+            header { padding: 20px 8%; }
+            .hero { padding: 100px 10%; text-align: left; }
+            .hero h1 { font-size: 50px; }
+            .hero p { margin: 0 0 30px 0; }
+            .product-container { grid-template-columns: repeat(2, 1fr); }
+            .product-card { max-width: 100%; }
+        }
+        @media (min-width: 900px) {
+            .hero h1 { font-size: 55px; }
+            .product-container { grid-template-columns: repeat(3, 1fr); }
+            .about { padding: 70px 15%; }
+            .products { padding: 70px 8%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="viewport-controls">
+        <span>View Mode:</span>
+        <button class="viewport-btn active" onclick="switchView('auto', this)">Automatic</button>
+        <button class="viewport-btn" onclick="switchView('desktop', this)">Desktop View</button>
+        <button class="viewport-btn" onclick="switchView('tablet', this)">Tablet View</button>
+        <button class="viewport-btn" onclick="switchView('phone', this)">Phone View</button>
+    </div>
+    <div class="marketplace-wrapper" id="marketplaceFrame">
+        <header>
+            <div class="logo">4024flwrs</div>
+            <nav>
+                <a href="#home">Home</a>
+                <a href="#products">Products</a>
+                <a href="#about">About Us</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </header>
+        <main>
+            <section id="home" class="hero">
+                <h1>Bloom More,<br>Spend Less.</h1>
+                <p>Affordable and beautiful flowers made for every celebration, surprise, and special moment.</p>
+                <a href="#products" class="hero-button">Shop Flowers</a>
+            </section>
+            <section id="products" class="products">
+                <h2>Our Flowers</h2>
+                <p class="section-text">Fresh and affordable flowers for every occasion.</p>
+                <div class="product-container">
+                    <div class="product-card">
+                        <img src="https://www.kalidades.com/wp-content/uploads/2025/05/Bouquet-of-6-stems-Gerbera.png" alt="Colorful Gerbera flower bouquet">
+                        <h3>Gerbera</h3>
+                        <p>A bright and cheerful flower perfect for simple gifts and everyday surprises.</p>
+                        <h4>₱99</h4>
+                        <button>Buy Now</button>
+                    </div>
+                    <div class="product-card">
+                        <img src="https://www.kalidades.com/wp-content/uploads/2023/04/red-6-stem-carn-1.png" alt="Pink carnation flowers">
+                        <h3>Carnation</h3>
+                        <p>A classic flower that expresses love, appreciation, and thoughtful gestures.</p>
+                        <h4>₱99</h4>
+                        <button>Buy Now</button>
+                    </div>
+                    <div class="product-card">
+                        <img src="https://labellarosaflowers.com/cdn/shop/products/FullSizeRender110.jpg?v=1641210794&width=1946" alt="Yellow sunflower bouquet">
+                        <h3>Sunflower</h3>
+                        <p>A vibrant and happy flower that brings warmth and positivity to any occasion.</p>
+                        <h4>₱119</h4>
+                        <button>Buy Now</button>
+                    </div>
+                    <div class="product-card">
+                        <img src="https://labellarosaflowers.com/cdn/shop/products/459B0BC5-C855-47DC-89D4-0364EC8A8747.jpg?v=1641206754&width=1946" alt="Pink tulip flower bouquet">
+                        <h3>Tulips</h3>
+                        <p>Elegant tulips perfect for birthdays, anniversaries, and special celebrations.</p>
+                        <h4>₱249</h4>
+                        <button>Buy Now</button>
+                    </div>
+                    <div class="product-card">
+                        <img src="https://gloristflowers.com/cdn/shop/files/coral-snow-white-gypsophila-kraft-white-wrap-bouquet-2.jpg?v=1778912980" alt="White flower fillers">
+                        <h3>Imported Fillers</h3>
+                        <p>Delicate imported fillers that add extra beauty and character to your bouquet.</p>
+                        <h4>₱299</h4>
+                        <button>Buy Now</button>
+                    </div>
+                </div>
+            </section>
+            <section id="about" class="about">
+                <h2>About 4024flwrs</h2>
+                <p>4024flwrs is a student-owned mini flower shop that believes beautiful flowers should be affordable and accessible.</p>
+                <p>We offer simple yet meaningful flowers for students, friends, families, and loved ones.</p>
+                <p class="slogan">Bloom More, Spend Less.</p>
+            </section>
+            <section id="contact" class="contact">
+                <h2>Get in Touch</h2>
+                <p>Have a question or want to learn more about our flowers?</p>
+                <p><strong>Location:</strong> Biñan, Laguna</p>
+                <p><strong>Social Media:</strong> <a href="https://www.facebook.com/" target="_blank">Facebook</a> | <a href="https://www.instagram.com/" target="_blank">Instagram</a></p>
+            </section>
+        </main>
+        <footer>
+            <p>© 2026 4024flwrs. All rights reserved.</p>
+            <p>Bloom More, Spend Less.</p>
+        </footer>
+    </div>
+    <script>
+        function switchView(mode, button) {
+            const frame = document.getElementById('marketplaceFrame');
+            const buttons = document.querySelectorAll('.viewport-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            frame.className = 'marketplace-wrapper';
+            if (mode !== 'auto') {
+                frame.classList.add('view-' + mode);
+            }
+        }
+    <\/script>
+</body>
+</html>`;
+
+        function openProject(type) {
+            let content = '';
+            if (type === 'portfolio') {
+                content = portfolioSource;
+            } else if (type === 'marketplace' || type === 'responsive') {
+                content = marketplaceSource;
+            }
+
+            const newWin = window.open('', '_blank');
+            if (newWin) {
+                newWin.document.open();
+                newWin.document.write(content);
+                newWin.document.close();
+            } else {
+                alert('Please allow popups for this site to open the project full page.');
+            }
+        }
+    </script>
+</body>
+</html>
